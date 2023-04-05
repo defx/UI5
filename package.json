@@ -1,11 +1,11 @@
 {
   "name": "@defx/c8",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
-  "main": "dist/r5.min.js",
-  "browser": "dist/r5.min.js",
-  "unpkg": "dist/r5.min.js",
+  "main": "dist/c8.min.js",
+  "browser": "dist/c8.min.js",
+  "unpkg": "dist/c8.min.js",
   "module": "src/index.js",
   "files": [
     "src",
