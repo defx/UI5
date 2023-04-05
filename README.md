@@ -20,7 +20,7 @@ import { html } from "https://www.unpkg.com/@defx/c8"
 
 ### define
 
-c8 uses standard Custom Elements as reusable component containers. This is the only part of the Web Component API that is currently utilised. As per the design constraints, there is no attribute/property reflection.
+c8 uses standard Custom Elements as reusable component containers. This is the only part of the Web Component API that is currently utilised. As c8 components all get their data directly from the central state container, there is no attribute/property reflection taking place.
 
 ```ts
 define(
