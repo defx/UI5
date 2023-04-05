@@ -16,38 +16,6 @@ npm install @defx/c8
 import { html } from "https://www.unpkg.com/@defx/c8"
 ```
 
-## Common Types
-
-```ts
-type Primitive = string | boolean | number | null
-
-type SerialisableObject = Record<string, Primitive | SerialisableObject>
-
-type dispatch = {
-  (
-    /**
-     * The identifying type of the action
-     */
-    type: string,
-    /**
-     * An object containing any values required to update state
-     */
-    payload: SerialisableObject
-  )
-}
-
-/**
- * A Reducer function takes the current application state, the type of the dispatched action, and the action payload, and it returns the next state of the application.
- */
-type Reducer = {
-  (state: SerialisableObject, type: string, payload: SerialisableObject)
-}
-
-type RenderFunction = {
-  (state: SerialisableObject, dispatch: Dispatch)
-}
-```
-
 ## API
 
 ### define
