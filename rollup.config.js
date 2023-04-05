@@ -4,7 +4,7 @@ export default [
   {
     input: "src/index.js",
     output: {
-      file: "dist/ui5.js",
+      file: "dist/c8.js",
       format: "es",
     },
   },
@@ -12,7 +12,7 @@ export default [
     input: "src/index.js",
     plugins: [terser()],
     output: {
-      file: "dist/ui5.min.js",
+      file: "dist/c8.min.js",
       format: "es",
     },
   },

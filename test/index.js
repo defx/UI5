@@ -1,6 +1,6 @@
 import { html, define, configure } from "../src/index.js"
 
-describe("ui5", () => {
+describe("c8", () => {
   it("", async () => {
     const initialState = {
       greeting: "Hello World!",
