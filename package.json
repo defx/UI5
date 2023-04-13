@@ -1,7 +1,7 @@
 {
   "name": "@defx/c8",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "main": "dist/c8.min.js",
   "browser": "dist/c8.min.js",
