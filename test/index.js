@@ -41,7 +41,10 @@ describe("c8", () => {
         <button
           ${greetingInput?.length ? "" : "disabled"}
           type="button"
-          onclick="${() => dispatch("updategreeting")}"
+          onclick="${() => {
+            console.log("click!")
+            dispatch("updategreeting")
+          }}"
         >
           submit
         </button>`

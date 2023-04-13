@@ -1,7 +1,7 @@
 {
   "name": "@defx/c8",
   "type": "module",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "",
   "main": "dist/c8.min.js",
   "browser": "dist/c8.min.js",
@@ -24,7 +24,7 @@
   "author": "defx",
   "license": "MIT",
   "dependencies": {
-    "@defx/r5": "^0.0.7",
+    "@defx/r5": "^0.0.8",
     "@defx/s4": "^0.0.4"
   },
   "devDependencies": {
