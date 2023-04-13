@@ -1,7 +1,7 @@
 import { render } from "./r5.js"
 import { getState, dispatch, subscribe, ready } from "./s4.js"
 
-export { html } from "./r5.js"
+export { html, render } from "./r5.js"
 export { configure } from "./s4.js"
 
 export const define = (name, fn) => {

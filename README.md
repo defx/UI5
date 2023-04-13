@@ -13,7 +13,7 @@ npm install @defx/c8
 ### Import via CDN
 
 ```js
-import { html } from "https://www.unpkg.com/@defx/c8"
+import { html, define, configure } from "https://www.unpkg.com/@defx/c8"
 ```
 
 ## API
