@@ -24,7 +24,7 @@
   "author": "defx",
   "license": "MIT",
   "dependencies": {
-    "@defx/r5": "^0.0.9",
+    "@defx/r5": "^0.0.11",
     "@defx/s4": "^0.0.4"
   },
   "devDependencies": {
