@@ -1,4 +1,4 @@
-import { html, define, configure } from "../src/index.js"
+import { html, define } from "../src/index.js"
 
 describe("c8", () => {
   it("", async () => {
@@ -6,7 +6,7 @@ describe("c8", () => {
       greeting: "Hello World!",
     }
 
-    configure((state = initialState, type, payload) => {
+    const reducer = (state = initialState, type, payload) => {
       switch (type) {
         case "greetinginput": {
           return {
@@ -25,7 +25,7 @@ describe("c8", () => {
           return state
         }
       }
-    })
+    }
 
     const HelloWorld = ({ greeting, greetingInput = "" }, dispatch) => {
       return html`<p>${greeting}</p>
@@ -50,7 +50,7 @@ describe("c8", () => {
         </button>`
     }
 
-    define("hello-world", HelloWorld)
+    define("hello-world", HelloWorld, reducer)
 
     const wc = document.createElement("hello-world")
     document.body.appendChild(wc)

@@ -1,4 +1,4 @@
-import { html } from "../src/index.js"
+import { define, html } from "../src/index.js"
 
 const initialState = {
   searchText: "",
@@ -6,7 +6,7 @@ const initialState = {
   filteredSuggestions: [],
 }
 
-export const reducer = (state = initialState, type, payload) => {
+const reducer = (state = initialState, type, payload) => {
   switch (type) {
     case "searchTextInput": {
       return {
@@ -32,7 +32,7 @@ export const reducer = (state = initialState, type, payload) => {
   }
 }
 
-export const template = ({ filteredSuggestions = [] }, dispatch) =>
+const template = ({ filteredSuggestions = [] }, dispatch) =>
   html`
     <input
       type="text"
@@ -46,3 +46,5 @@ export const template = ({ filteredSuggestions = [] }, dispatch) =>
       )}
     </ul>
   `
+
+define("auto-complete", template, reducer)

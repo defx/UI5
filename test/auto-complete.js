@@ -1,5 +1,5 @@
-import { define, configure, render, html } from "../src/index.js"
-import * as AutoComplete from "../components/auto-complete.js"
+import { render, html } from "../src/index.js"
+import "../components/auto-complete.js"
 
 describe("AutoComplete", () => {
   let rootNode
@@ -12,8 +12,6 @@ describe("AutoComplete", () => {
   afterEach(() => {
     // document.body.removeChild(rootNode)
   })
-
-  define("auto-complete", AutoComplete.template)
 
   it("...", () => {
     const suggestions = [
@@ -99,9 +97,9 @@ describe("AutoComplete", () => {
       },
     ]
 
-    configure((state = { suggestions }, ...rest) =>
-      AutoComplete.reducer(state, ...rest)
-    )
+    // configure((state = { suggestions }, ...rest) =>
+    //   AutoComplete.reducer(state, ...rest)
+    // )
 
     render(html`<auto-complete></auto-complete>`, rootNode)
   })
