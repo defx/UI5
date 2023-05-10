@@ -2,7 +2,45 @@
 
 ## [![gzip size](https://img.badgesize.io/https://unpkg.com/@defx/c8/dist/c8.min.js?compression=gzip&label=gzip)]()
 
-The little JavaScript library for building pure, functional, UI components connected via a single state container.
+The little JavaScript library for building pure functional UI components connected via a single state container.
+
+```js
+import { configure, html, define } from "@defx/c8"
+
+configure((state = initialState, type, payload) => {
+  switch(type) {
+    case "incrementCount": {
+      return {
+        ...state,
+        count: state.count + 1
+      }
+    }
+    default: {
+      return state
+    }
+  }
+})
+
+define("simple-counter". (state, dispatch) => html`
+  <p>${count}</p>
+  <button onclick="${() => dispatch("incrementCount")}"></button>
+`)
+```
+
+C8 makes it easy to
+
+- [express your UI as a function of state](#ui-as-a-function-of-state)
+- [manage component and application state through a central state container](#a-single-state-container)
+- [test your components without having to mock internal dependencies](#components-that-are-easy-to-test)
+- manage asynchronous data flow and side effects
+
+## UI as a function of state
+
+description here
+
+## A single state container
+
+## Component testing
 
 ### Install via NPM
 
@@ -15,6 +53,20 @@ npm install @defx/c8
 ```js
 import { html, define, configure } from "https://www.unpkg.com/@defx/c8"
 ```
+
+C8 components are designed specifically to enable programming UI as a pure function of state.
+
+State management is included to ensure that your state is centralised and not fragmented throughout your application.
+
+c8 components...
+
+- have no props or attributes
+- are all connected via a central state container
+- are described as pure / idempotent functions
+- are easy to test (no need to mock the internals)
+- use standard ES Template Literals
+- require no additional tooling
+- offer as much flexibility as you need to seperate concerns through standard functional composition
 
 ## API
 
@@ -58,4 +110,4 @@ The HTML function is a Tag Function that accepts an HTML Template Literal. It re
 
 Many modern UI applications quickly become hard to maintain due to coupling between components and state fragmentation. _"Prop-drilling"_ is one form of passing state within an application from component to component and is something that doesn't scale well as a project evolves, - as more and more components are introduced, it becomes harder to trace the source of a value, and harder to introduce new values where they are needed in the document tree. Internal component state via hooks (React) or some other mechanism is a second way that state exists within many UI apps, increasing the complexity of components (and in turn the application) by making components non-idempotent (calling a component with the same arguments doesn't necessarily yield the same result). Finally, there is almost always some requirement for shared state within a UI application that cannot be met be either of the first two approaches and necessitates the introduction of a third state layer, whether that be shared hooks, data "providers", a state container, or suchlike. Having state fragmented across multiple zones like this makes applications unnecessarily difficult to reason about, with states that can be difficult to recreate, and seemingly innocuous changes requiring multiple changes throughout the application due to coupling between components and their dependencies. Components often require dependencies in order to enable their shared and/or internal state, and then these dependencies need to be mocked within component tests, thus making the tests dependent on the internal implementation and also brittle to change.
 
-c8 employs patterns that are designed to reduce the UI problem space by enabling components that do not communicate via props/attributes, only via a central state container. Components are described as pure render functions using ES Template Literals that accept two arguments, the current state of the application, and the state containers `dispatch` function. Following this approach ensures that components are idempotent, and makes component testing a breeze because the sum of a components inputs and outputs flow through these two arguments. state is always shared via the same container, so capturing and/or recreating a particular state becomes trivial, and the flow of data is always predictable and easy to understand.
+reduce the UI problem space by enabling components that do not communicate via props/attributes, only via a central state container. Components are described as pure render functions using ES Template Literals that accept two arguments, the current state of the application, and the state containers `dispatch` function. Following this approach ensures that components are idempotent, and makes component testing a breeze because the sum of a components inputs and outputs flow through these two arguments. state is always shared via the same container, so capturing and/or recreating a particular state becomes trivial, and the flow of data is always predictable and easy to understand.

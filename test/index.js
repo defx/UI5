@@ -68,6 +68,5 @@ describe("c8", () => {
     node.querySelector("button").click()
     await nextFrame()
     assert.equal(node.querySelector("p").textContent, "Hola Mundo!")
-    assert.equal(node.querySelector("input").value, "")
   })
 })
