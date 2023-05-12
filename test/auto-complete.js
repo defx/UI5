@@ -1,5 +1,5 @@
-import { render, html } from "../src/index.js"
-import * as AutoComplete from "../components/auto-complete.js"
+import { render, html, container } from "../src/index.js"
+import "../components/auto-complete.js"
 
 describe("AutoComplete", () => {
   let rootNode
@@ -98,7 +98,16 @@ describe("AutoComplete", () => {
     ]
 
     const initialState = {
-      suggestions,
+      "serie-a": { suggestions },
     }
+
+    container("x-container", (state = initialState) => state)
+
+    render(
+      html`<x-container>
+        <auto-complete ns="serie-a"></auto-complete>
+      </x-container>`,
+      rootNode
+    )
   })
 })

@@ -9,7 +9,7 @@ describe("container", () => {
   })
 
   afterEach(() => {
-    // document.body.removeChild(rootNode)
+    document.body.removeChild(rootNode)
   })
 
   it("...", () => {

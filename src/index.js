@@ -17,7 +17,7 @@ export const define = (name, templateFn, reducer = () => ({})) => {
         const store = createStore(reducer)
 
         this.dispatchEvent(
-          new CustomEvent("container.subscribe", {
+          new CustomEvent("c8/subscribe", {
             bubbles: true,
             detail: {
               ns,
@@ -44,7 +44,7 @@ export const container = (name, reducer = () => ({}), middleware = []) => {
     class extends HTMLElement {
       async connectedCallback() {
         const storeA = createStore(reducer, middleware)
-        this.addEventListener("container.subscribe", (e) => {
+        this.addEventListener("c8/subscribe", (e) => {
           const { store: storeB, ns } = e.detail
 
           storeB.setState((current) => ({

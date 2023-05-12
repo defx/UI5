@@ -31,13 +31,14 @@ const reducer = (state = initialState, type, payload) => {
 }
 
 const template = (
-  { suggestions = [], filteredSuggestions = suggestions },
+  { suggestions = [], filteredSuggestions = suggestions, searchText },
   dispatch
 ) =>
   html`
     <input
       type="text"
       oninput="${(e) => dispatch("searchTextInput", { text: e.target.value })}"
+      value="${searchText}"
     />
     <ul>
       ${filteredSuggestions.map(({ id, text }) =>
