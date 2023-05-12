@@ -10,27 +10,28 @@ const debounce = (callback) => {
 
 export const createStore = (reducer, middleware = []) => {
   const subscribers = new Set()
-
   let state = reducer()
 
   const store = {
+    setState(fn) {
+      state = fn(state)
+    },
     getState() {
       return { ...state }
     },
     dispatch(type, payload) {
       middleware.forEach((fn) => fn(type, payload, store))
       state = reducer(store.getState(), type, payload)
-      publish()
+      store.publish()
     },
     subscribe(fn) {
       subscribers.add(fn)
     },
-  }
-
-  const publish = () => {
-    for (const fn of subscribers.values()) {
-      fn(store.getState())
-    }
+    publish() {
+      for (const fn of subscribers.values()) {
+        fn(store.getState())
+      }
+    },
   }
 
   return store

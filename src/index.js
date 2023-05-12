@@ -47,17 +47,23 @@ export const container = (name, reducer = () => ({}), middleware = []) => {
         this.addEventListener("container.subscribe", (e) => {
           const { store: storeB, ns } = e.detail
 
-          const _getState = storeB.getState
+          storeB.setState((current) => ({
+            ...storeA.getState()[ns],
+            ...current,
+          }))
 
-          storeB.getState = function () {
-            return {
-              ..._getState(),
+          storeA.subscribe(() => {
+            storeB.setState((current) => ({
+              ...current,
               ...storeA.getState()[ns],
-            }
-          }
+            }))
+            storeB.publish()
+          })
 
           e.stopPropagation()
         })
+
+        this.$dispatch = storeA.dispatch
       }
     }
   )

@@ -22,17 +22,49 @@ describe("container", () => {
       },
     }
 
-    container("container-x", () => initialState)
+    container("container-x", (state = initialState, type, payload) => {
+      switch (type) {
+        case "reset": {
+          return initialState
+        }
+        default: {
+          return state
+        }
+      }
+    })
 
     define(
       "component-a",
-      ({ greeting = "Hello world!" }, dispatch) =>
+      ({ greeting = "Hello world!", greetingInput = "" }, dispatch) =>
         html`<p>${greeting}</p>
           <input
             oninput="${(e) =>
-              dispatch({ type: "foo", payload: { text: e.target.value } })}"
-          />`,
-      (v) => v
+              dispatch("greetingInput", { text: e.target.value })}"
+            value="${greetingInput}"
+          />
+          <button onclick="${() => dispatch("updateGreeting")}">
+            update
+          </button>`,
+      (state, type, payload) => {
+        switch (type) {
+          case "greetingInput": {
+            return {
+              ...state,
+              greetingInput: payload.text,
+            }
+          }
+          case "updateGreeting": {
+            return {
+              ...state,
+              greeting: state.greetingInput,
+              greetingInput: "",
+            }
+          }
+          default: {
+            return state
+          }
+        }
+      }
     )
 
     render(
@@ -43,6 +75,39 @@ describe("container", () => {
         </container-x>
       `,
       rootNode
+    )
+
+    assert.equal(
+      rootNode.querySelector(`component-a[ns="french"] p`).textContent,
+      initialState.french.greeting
+    )
+
+    assert.equal(
+      rootNode.querySelector(`component-a[ns="german"] p`).textContent,
+      initialState.german.greeting
+    )
+
+    rootNode.querySelector(`component-a[ns="french"] input`).value = "bonjour!"
+    rootNode
+      .querySelector(`component-a[ns="french"] input`)
+      .dispatchEvent(new Event("input", { bubbles: true }))
+    rootNode.querySelector(`component-a[ns="french"] button`).click()
+
+    assert.equal(
+      rootNode.querySelector(`component-a[ns="french"] p`).textContent,
+      "bonjour!"
+    )
+
+    rootNode.querySelector(`container-x`).$dispatch("reset")
+
+    assert.equal(
+      rootNode.querySelector(`component-a[ns="french"] p`).textContent,
+      initialState.french.greeting
+    )
+
+    assert.equal(
+      rootNode.querySelector(`component-a[ns="german"] p`).textContent,
+      initialState.german.greeting
     )
   })
 })
