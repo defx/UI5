@@ -38,18 +38,44 @@ export const define = (name, templateFn, reducer = () => ({})) => {
   )
 }
 
-export const container = (name, reducer = () => ({})) => {
+export const container = (name, reducer = () => ({}), middleware = []) => {
   if (customElements.get(name)) return
 
   customElements.define(
     name,
     class extends HTMLElement {
       async connectedCallback() {
-        const { subscribe, dispatch, getState } = createStore(reducer)
+        const { subscribe, dispatch, getState, setState } = createStore(
+          reducer,
+          middleware
+        )
         this.addEventListener("container.subscribe", (e) => {
           const { callback, store, ns } = e.detail
-          // @todo: wrap store
-          callback(store)
+
+          const wrappedGetState = () => ({
+            ...store.getState(),
+            ...getState()[ns],
+          })
+
+          // const wrappedDispatch = (type, payload) => {
+          //   store.dispatch(type, payload)
+
+          //   // @todo: update state with slice
+          //   const slice = store.getState()
+          //   setState((currentState) => ({ ...currentState, [ns]: slice }))
+
+          //   dispatch(`${ns}/${type}`, payload)
+
+          //   // store.setState(getState()[ns])
+
+          //   // @todo: publish
+          // }
+
+          callback({
+            ...store,
+            getState: wrappedGetState,
+            // dispatch: wrappedDispatch,
+          })
           e.stopPropagation()
         })
       }

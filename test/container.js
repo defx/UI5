@@ -13,19 +13,29 @@ describe("container", () => {
   })
 
   it("...", () => {
-    container("app-container", () => {})
+    const initialState = {
+      french: {
+        greeting: "Salut tout le monde!",
+      },
+      german: {
+        greeting: "Hallo Welt!",
+      },
+    }
+
+    container("container-x", () => initialState)
+
     define(
       "component-a",
-      () => html`<p>hello world!</p>`,
-      () => {}
+      ({ greeting = "Hello world!" }) => html`<p>${greeting}</p>`,
+      (v) => v
     )
 
     render(
       html`
-        <app-container>
-          <component-a></component-a>
-          <component-a></component-a>
-        </app-container>
+        <container-x>
+          <component-a ns="french"></component-a>
+          <component-a ns="german"></component-a>
+        </container-x>
       `,
       rootNode
     )

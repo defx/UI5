@@ -33,5 +33,6 @@ export const createStore = (reducer, middleware = []) => {
     getState,
     dispatch,
     subscribe,
+    setState: (fn) => (state = fn(state)),
   }
 }
