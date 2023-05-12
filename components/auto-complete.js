@@ -3,7 +3,6 @@ import { define, html } from "../src/index.js"
 const initialState = {
   searchText: "",
   suggestions: [],
-  filteredSuggestions: [],
 }
 
 const reducer = (state = initialState, type, payload) => {
@@ -26,13 +25,15 @@ const reducer = (state = initialState, type, payload) => {
     default: {
       return {
         ...state,
-        filteredSuggestions: state.suggestions,
       }
     }
   }
 }
 
-const template = ({ filteredSuggestions = [] }, dispatch) =>
+const template = (
+  { suggestions = [], filteredSuggestions = suggestions },
+  dispatch
+) =>
   html`
     <input
       type="text"

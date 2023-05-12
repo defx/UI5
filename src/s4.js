@@ -15,11 +15,11 @@ export const createStore = (reducer, middleware = []) => {
 
   const getState = () => ({ ...state })
 
-  const publish = debounce(() => {
+  const publish = () => {
     for (const fn of subscribers.values()) {
       fn(getState())
     }
-  })
+  }
 
   const dispatch = (type, payload) => {
     middleware.forEach((fn) => fn(type, payload, { getState, dispatch }))
