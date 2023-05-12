@@ -48,8 +48,8 @@ export const container = (name, reducer = () => ({}), middleware = []) => {
           const { store: storeB, ns } = e.detail
 
           storeB.setState((current) => ({
-            ...storeA.getState()[ns],
             ...current,
+            ...storeA.getState()[ns],
           }))
 
           storeA.subscribe(() => {
@@ -58,6 +58,13 @@ export const container = (name, reducer = () => ({}), middleware = []) => {
               ...storeA.getState()[ns],
             }))
             storeB.publish()
+          })
+
+          storeB.subscribe(() => {
+            storeA.setState((current) => ({
+              ...current,
+              [ns]: storeB.getState(),
+            }))
           })
 
           e.stopPropagation()
