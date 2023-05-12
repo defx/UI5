@@ -14,25 +14,23 @@ export const define = (name, templateFn, reducer = () => ({})) => {
     class extends HTMLElement {
       async connectedCallback() {
         const ns = this.getAttribute("ns") || `${name}/${++c}`
-        let store = createStore(reducer)
+        const store = createStore(reducer)
 
         this.dispatchEvent(
           new CustomEvent("container.subscribe", {
             bubbles: true,
             detail: {
               ns,
-              callback: (wrappedStore) => (store = wrappedStore),
               store,
             },
           })
         )
 
-        const { subscribe, dispatch, getState } = store
+        const update = (state) =>
+          render(templateFn(state, store.dispatch), this)
 
-        const update = (state) => render(templateFn(state, dispatch), this)
-
-        update(getState())
-        subscribe(update)
+        update(store.getState())
+        store.subscribe(update)
       }
     }
   )
@@ -45,37 +43,19 @@ export const container = (name, reducer = () => ({}), middleware = []) => {
     name,
     class extends HTMLElement {
       async connectedCallback() {
-        const { subscribe, dispatch, getState, setState } = createStore(
-          reducer,
-          middleware
-        )
+        const storeA = createStore(reducer, middleware)
         this.addEventListener("container.subscribe", (e) => {
-          const { callback, store, ns } = e.detail
+          const { store: storeB, ns } = e.detail
 
-          const wrappedGetState = () => ({
-            ...store.getState(),
-            ...getState()[ns],
-          })
+          const _getState = storeB.getState
 
-          // const wrappedDispatch = (type, payload) => {
-          //   store.dispatch(type, payload)
+          storeB.getState = function () {
+            return {
+              ..._getState(),
+              ...storeA.getState()[ns],
+            }
+          }
 
-          //   // @todo: update state with slice
-          //   const slice = store.getState()
-          //   setState((currentState) => ({ ...currentState, [ns]: slice }))
-
-          //   dispatch(`${ns}/${type}`, payload)
-
-          //   // store.setState(getState()[ns])
-
-          //   // @todo: publish
-          // }
-
-          callback({
-            ...store,
-            getState: wrappedGetState,
-            // dispatch: wrappedDispatch,
-          })
           e.stopPropagation()
         })
       }

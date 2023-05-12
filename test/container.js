@@ -26,7 +26,12 @@ describe("container", () => {
 
     define(
       "component-a",
-      ({ greeting = "Hello world!" }) => html`<p>${greeting}</p>`,
+      ({ greeting = "Hello world!" }, dispatch) =>
+        html`<p>${greeting}</p>
+          <input
+            oninput="${(e) =>
+              dispatch({ type: "foo", payload: { text: e.target.value } })}"
+          />`,
       (v) => v
     )
 
