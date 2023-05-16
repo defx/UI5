@@ -1,5 +1,5 @@
-import { render, html, container } from "../src/index.js"
-import "../components/auto-complete.js"
+import { render, html, container } from "../../src/index.js"
+import "./index.js"
 
 describe("AutoComplete", () => {
   let rootNode

@@ -1,4 +1,4 @@
-import { define, html } from "../src/index.js"
+import { define, html } from "../../src/index.js"
 
 const initialState = {
   searchText: "",
