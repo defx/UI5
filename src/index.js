@@ -1,7 +1,7 @@
-import { render } from "./r5.js"
+import { render } from "./r5/index.js"
 import { createStore } from "./s4.js"
 
-export { html, render } from "./r5.js"
+export { html, render } from "./r5/index.js"
 export { createStore } from "./s4.js"
 
 export const define = (name, templateFn, reducer = () => ({})) => {
