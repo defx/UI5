@@ -51,11 +51,10 @@ describe("c8", () => {
 
     define("hello-world", HelloWorld, reducer)
 
-    const wc = document.createElement("hello-world")
-    document.body.appendChild(wc)
+    const node = document.createElement("hello-world")
+    document.body.appendChild(node)
     await nextFrame()
 
-    const node = document.querySelector(`hello-world`)
     assert.equal(node.querySelector("p").textContent, "Hello World!")
     assert.ok(node.querySelector("button").disabled)
     node.querySelector("input").value = "Hola Mundo!"
