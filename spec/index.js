@@ -42,7 +42,6 @@ describe("c8", () => {
           ${greetingInput?.length ? "" : "disabled"}
           type="button"
           onclick="${() => {
-            console.log("click!")
             dispatch("updategreeting")
           }}"
         >
@@ -68,5 +67,11 @@ describe("c8", () => {
     node.querySelector("button").click()
     await nextFrame()
     assert.equal(node.querySelector("p").textContent, "Hola Mundo!")
+
+    node.setAttribute("greeting", "Hallo Welt!")
+    assert.equal(node.querySelector("p").textContent, "Hallo Welt!")
+
+    node.greeting = "Helló világ!"
+    assert.equal(node.querySelector("p").textContent, "Helló világ!")
   })
 })
