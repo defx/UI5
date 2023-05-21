@@ -14,7 +14,7 @@ define(
     <button onclick="${() => dispatch("incrementCount")}"></button>
   `,
   { count: 0 },
-  { incrementCount: (state) => ({ count: state.count + 1 }) }
+  { incrementCount: (state) => ({ ...state, count: state.count + 1 }) }
 )
 ```
 
