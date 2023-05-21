@@ -1,6 +1,6 @@
 # @defx/c8
 
-## [![gzip size](https://img.badgesize.io/https://unpkg.com/@defx/c8/dist/c8.min.js?compression=gzip&label=gzip)]()
+## [![npm](https://img.shields.io/npm/v/@defx/c8.svg)](http://npm.im/@defx/c8) [![gzip size](https://img.badgesize.io/https://unpkg.com/@defx/c8/dist/c8.min.js?compression=gzip&label=gzip)]()
 
 The little JavaScript library for building UI as a pure function of state
 
