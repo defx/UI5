@@ -7,26 +7,15 @@ The little JavaScript library for building pure functional UI components
 ```js
 import { html, define } from "@defx/c8"
 
-const template = (state, dispatch) => html`
-  <p>${state.count}</p>
-  <button onclick="${() => dispatch("incrementCount")}"></button>
-`
-
-const reducer = (state = initialState, type, payload) => {
-  switch (type) {
-    case "incrementCount": {
-      return {
-        ...state,
-        count: state.count + 1,
-      }
-    }
-    default: {
-      return state
-    }
-  }
-}
-
-define("simple-counter", template, reducer)
+define(
+  "simple-counter",
+  (state, dispatch) => html`
+    <p>${state.count}</p>
+    <button onclick="${() => dispatch("incrementCount")}"></button>
+  `,
+  { count: 0 },
+  { incrementCount: (state) => ({ count: state.count + 1 }) }
+)
 ```
 
 C8 components are designed specifically to enable programming UI as a pure function of state.

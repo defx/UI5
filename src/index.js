@@ -4,14 +4,14 @@ import { createStore } from "./s4.js"
 export { html, render } from "./r5/index.js"
 export { createStore } from "./s4.js"
 
-export const define = (name, templateFn, reducer = () => ({})) => {
+export const define = (name, templateFn, initialState = {}, updateFns = {}) => {
   if (customElements.get(name)) return
 
   customElements.define(
     name,
     class extends HTMLElement {
       async connectedCallback() {
-        const store = createStore(reducer)
+        const store = createStore(initialState, updateFns)
         const observed = new Set()
         const host = this
 

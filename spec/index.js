@@ -6,25 +6,13 @@ describe("c8", () => {
       greeting: "Hello World!",
     }
 
-    const reducer = (state = initialState, type, payload) => {
-      switch (type) {
-        case "greetinginput": {
-          return {
-            ...state,
-            greetingInput: payload.value,
-          }
-        }
-        case "updategreeting": {
-          return {
-            ...state,
-            greeting: state.greetingInput,
-            greetingInput: "",
-          }
-        }
-        default: {
-          return state
-        }
-      }
+    const updateFns = {
+      greetinginput: (state, { value }) => ({ ...state, greetingInput: value }),
+      updategreeting: (state) => ({
+        ...state,
+        greeting: state.greetingInput,
+        greetingInput: "",
+      }),
     }
 
     const HelloWorld = ({ greeting, greetingInput = "" }, dispatch) => {
@@ -49,7 +37,7 @@ describe("c8", () => {
         </button>`
     }
 
-    define("hello-world", HelloWorld, reducer)
+    define("hello-world", HelloWorld, initialState, updateFns)
 
     const node = document.createElement("hello-world")
     document.body.appendChild(node)
