@@ -7,15 +7,18 @@ The little JavaScript library for building UI as a pure function of state
 ```js
 import { html, define } from "@defx/c8"
 
-define(
-  "simple-counter",
-  (state, dispatch) => html`
-    <p>${state.count}</p>
-    <button onclick="${() => dispatch("incrementCount")}"></button>
-  `,
-  { count: 0 },
-  { incrementCount: (state) => ({ ...state, count: state.count + 1 }) }
-)
+const template = (state, dispatch) => html`
+  <p>${state.count}</p>
+  <button onclick="${() => dispatch("incrementCount")}"></button>
+`
+
+const initialState = { count: 0 }
+
+const handlers = {
+  incrementCount: (state) => ({ ...state, count: state.count + 1 }),
+}
+
+define("simple-counter", template, initialState, handlers)
 ```
 
 c8 components...
