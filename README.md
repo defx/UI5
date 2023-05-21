@@ -67,4 +67,4 @@ define(
 
 ### html
 
-The HTML function is a Tag Function that accepts an HTML Template Literal. It returns an [R5](https://github.com/defx/r5) template object, which is essentially a description of what needs to be rendered. You can use any JS logic you like here, as long as you return valid HTML. The only non-standard syntax is event handlers; bind any event to a node using `on-*` attributes, - the value you supply here should be a function that invokes the `dispatch` function to send a payload to a named handler.
+The HTML function is a Tag Function that accepts an HTML Template Literal. It returns an [R5](https://github.com/defx/r5) template object, which is essentially a description of what needs to be rendered. You can use any synchronous JavaScript logic you like here, as long as you return a string of valid HTML. The only non-standard syntax supported is to enable event binding; bind any event to a node using `on-*` attributes, - the value you supply here should be a function that invokes the `dispatch` function to send a payload to a named handler.
