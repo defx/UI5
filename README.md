@@ -2,7 +2,7 @@
 
 ## [![gzip size](https://img.badgesize.io/https://unpkg.com/@defx/c8/dist/c8.min.js?compression=gzip&label=gzip)]()
 
-The little JavaScript library for building pure functional UI components
+The little JavaScript library for building UI as a pure function of state
 
 ```js
 import { html, define } from "@defx/c8"
@@ -17,8 +17,6 @@ define(
   { incrementCount: (state) => ({ ...state, count: state.count + 1 }) }
 )
 ```
-
-C8 components are designed specifically to enable programming UI as a pure function of state.
 
 c8 components...
 
