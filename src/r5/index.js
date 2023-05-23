@@ -11,11 +11,17 @@ function nodeFromString(str) {
   return tpl.content.cloneNode(true)
 }
 
+function findTarget(node, predicate) {
+  if (predicate(node)) return node
+  return findTarget(node.parentNode, predicate)
+}
+
 export function bindEvents(rootNode, templateResult) {
   const {
     event: { types = [], handlers = {} },
   } = templateResult
   if (typeof window === "undefined") return
+
   const listeners = eventListeners.get(rootNode) || {}
 
   rootNode.$handlers = handlers
@@ -24,7 +30,9 @@ export function bindEvents(rootNode, templateResult) {
     if (type in listeners) return
 
     listeners[type] = (e) => {
-      const k = e.target.dataset[`on${type}`]
+      const target = findTarget(e.target, (node) => node.dataset[`on${type}`])
+      const k = target?.dataset[`on${type}`]
+
       rootNode.$handlers[k]?.(e)
     }
     rootNode.addEventListener(type, listeners[type])
@@ -44,5 +52,6 @@ export function render(templateResult, rootNode) {
   }
 
   update(templateResult, rootNode.firstChild)
+
   bindEvents(rootNode, templateResult)
 }

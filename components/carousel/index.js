@@ -5,11 +5,13 @@ const store = {
   slides: [{ label: "Slide #1" }, { label: "Slide #2" }, { label: "Slide #3" }],
   next: (state) => ({
     ...state,
-    activeSlide: state.activeSlide === 2 ? 0 : state.activeSlide + 1,
+    activeSlide:
+      state.activeSlide === state.slides.length - 1 ? 0 : state.activeSlide + 1,
   }),
   previous: (state) => ({
     ...state,
-    activeSlide: state.activeSlide === 0 ? 2 : state.activeSlide - 1,
+    activeSlide:
+      state.activeSlide === 0 ? state.slides.length - 1 : state.activeSlide - 1,
   }),
 }
 
@@ -21,6 +23,7 @@ const template = ({ activeSlide, slides = [] }, dispatch) => {
           class="previous"
           aria-controls="carouselItems"
           aria-label="Previous Slide"
+          onclick="${() => dispatch("previous")}"
         >
           <svg
             width="42"
@@ -53,6 +56,7 @@ const template = ({ activeSlide, slides = [] }, dispatch) => {
           class="next"
           aria-controls="carouselItems"
           aria-label="Next Slide"
+          onclick="${() => dispatch("next")}"
         >
           <svg
             width="42"
@@ -91,7 +95,7 @@ const template = ({ activeSlide, slides = [] }, dispatch) => {
                 : "carousel-item"}"
               role="group"
               aria-roledescription="slide"
-              aria-label="${index + 1} of 3"
+              aria-label="${index + 1} of ${slides.length}"
             >
               ${label}
             </div>
