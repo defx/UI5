@@ -8,7 +8,7 @@ const debounce = (callback) => {
   }
 }
 
-export const createStore = (initialState, updateFns, middleware = []) => {
+export const createStore = (initialState, updateFns) => {
   const subscribers = new Set()
   let state = { ...initialState }
 
@@ -20,12 +20,9 @@ export const createStore = (initialState, updateFns, middleware = []) => {
       return { ...state }
     },
     dispatch(type, payload) {
-      middleware.forEach((fn) => fn(type, payload, store))
-
-      if (typeof updateFns[type] === "function") {
-        state = updateFns[type](store.getState(), payload)
-        store.publish()
-      }
+      if (typeof updateFns[type] !== "function") return
+      state = updateFns[type](store.getState(), payload)
+      store.publish()
     },
     subscribe(fn) {
       subscribers.add(fn)
