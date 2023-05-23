@@ -2,11 +2,8 @@ import { html, define } from "../src/index.js"
 
 describe("c8", () => {
   it("", async () => {
-    const initialState = {
+    const store = {
       greeting: "Hello World!",
-    }
-
-    const updateFns = {
       greetinginput: (state, { value }) => ({ ...state, greetingInput: value }),
       updategreeting: (state) => ({
         ...state,
@@ -37,7 +34,7 @@ describe("c8", () => {
         </button>`
     }
 
-    define("hello-world", HelloWorld, initialState, updateFns)
+    define("hello-world", HelloWorld, store)
 
     const node = document.createElement("hello-world")
     document.body.appendChild(node)

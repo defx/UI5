@@ -14,11 +14,12 @@ const template = (state, dispatch) => html`
 
 const initialState = { count: 0 }
 
-const handlers = {
+const store = {
+  count: 0,
   incrementCount: (state) => ({ ...state, count: state.count + 1 }),
 }
 
-define("simple-counter", template, initialState, handlers)
+define("simple-counter", template, store)
 ```
 
 c8 components...

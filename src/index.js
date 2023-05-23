@@ -1,17 +1,22 @@
 import { render } from "./r5/index.js"
 import { createStore } from "./s4.js"
+import { appendStyles } from "./css.js"
 
 export { html, render } from "./r5/index.js"
 export { createStore } from "./s4.js"
 
-export const define = (name, templateFn, initialState = {}, updateFns = {}) => {
+export const define = (name, templateFn, _store = {}, css) => {
   if (customElements.get(name)) return
+
+  if (css) appendStyles(name, css)
+
+  const initialState = JSON.parse(JSON.stringify(_store))
 
   customElements.define(
     name,
     class extends HTMLElement {
       async connectedCallback() {
-        const store = createStore(initialState, updateFns)
+        const store = createStore(initialState, _store)
         const observed = new Set()
         const host = this
 
