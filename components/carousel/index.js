@@ -2,7 +2,7 @@ import { define, html } from "../../src/index.js"
 
 const store = {
   activeSlide: 0,
-  slides: [{ label: "Slide #1" }, { label: "Slide #2" }, { label: "Slide #3" }],
+  slides: [],
   next: (state) => ({
     ...state,
     activeSlide:
@@ -87,7 +87,7 @@ const template = ({ activeSlide, slides = [] }, dispatch) => {
         </button>
       </div>
       <div id="carouselItems" class="carousel-items" aria-live="off">
-        ${slides.map(({ label }, index) =>
+        ${slides.map((markup, index) =>
           html`
             <div
               class="${index === activeSlide
@@ -97,7 +97,7 @@ const template = ({ activeSlide, slides = [] }, dispatch) => {
               aria-roledescription="slide"
               aria-label="${index + 1} of ${slides.length}"
             >
-              ${label}
+              ${markup}
             </div>
           `.key(index)
         )}

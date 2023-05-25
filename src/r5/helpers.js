@@ -19,3 +19,17 @@ export function templateNodeFromString(str) {
   node.innerHTML = str.trim()
   return node
 }
+
+export function looksLikeATemplate(o) {
+  return !!(o?.markup && o?.strings)
+}
+
+export const debounce = (callback) => {
+  let timeoutId = null
+  return (...args) => {
+    window.cancelAnimationFrame(timeoutId)
+    timeoutId = window.requestAnimationFrame(() => {
+      callback.apply(null, args)
+    })
+  }
+}

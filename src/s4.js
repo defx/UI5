@@ -1,13 +1,3 @@
-const debounce = (callback) => {
-  let timeoutId = null
-  return (...args) => {
-    window.cancelAnimationFrame(timeoutId)
-    timeoutId = window.requestAnimationFrame(() => {
-      callback.apply(null, args)
-    })
-  }
-}
-
 export const createStore = (initialState, updateFns) => {
   const subscribers = new Set()
   let state = { ...initialState }

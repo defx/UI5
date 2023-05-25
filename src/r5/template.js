@@ -1,3 +1,5 @@
+import { looksLikeATemplate } from "./helpers.js"
+
 const isPrimitive = (v) => v === null || typeof v !== "object"
 
 function mergeTemplateEvents(a, b) {
@@ -11,10 +13,6 @@ function mergeTemplateEvents(a, b) {
 
 function stars(n) {
   return new Array(n).fill("*").join("")
-}
-
-function looksLikeATemplate(o) {
-  return !!(o?.markup && o?.strings)
 }
 
 function wrap(v) {
