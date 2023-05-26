@@ -1,14 +1,11 @@
 import { render } from "./r5/index.js"
 import { createStore } from "./s4.js"
-import { appendStyles } from "./css.js"
 
 export { html, render } from "./r5/index.js"
 export { createStore } from "./s4.js"
 
-export const define = (name, templateFn, _store = {}, css) => {
+export const define = (name, templateFn, _store = {}) => {
   if (customElements.get(name)) return
-
-  if (css) appendStyles(name, css)
 
   const initialState = JSON.parse(JSON.stringify(_store))
 
