@@ -16,8 +16,11 @@ function stars(n) {
 }
 
 function wrap(v) {
-  if (looksLikeATemplate(v)) return `<!--#${v.id}-->${v.markup}`
-  if (Array.isArray(v)) return `<!--{-->${v.map(wrap).join("")}<!--}-->`
+  if (Array.isArray(v)) {
+    return `<!--{-->${v
+      .map(({ id, markup }) => `<!--#${id}-->${markup}`)
+      .join("")}<!--}-->`
+  }
   return `<!--{-->${v || ""}<!--}-->`
 }
 

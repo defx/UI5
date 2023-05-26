@@ -1,15 +1,10 @@
 export { html } from "./template.js"
 import { update } from "./update.js"
+import { nodeFromString } from "./helpers.js"
 
 const nodes = new WeakSet()
 const isServer = typeof window === "undefined"
 const eventListeners = new WeakMap()
-
-function nodeFromString(str) {
-  let tpl = document.createElement("template")
-  tpl.innerHTML = str.trim()
-  return tpl.content.cloneNode(true)
-}
 
 function findTarget(node, predicate) {
   if (predicate(node)) return node
@@ -42,6 +37,7 @@ export function bindEvents(rootNode, templateResult) {
 
 export function render(templateResult, rootNode) {
   const { markup } = templateResult
+
   if (isServer || !rootNode) return markup
 
   if (!nodes.has(rootNode)) {
