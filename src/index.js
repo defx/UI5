@@ -4,8 +4,33 @@ import { createStore } from "./s4.js"
 export { html, render } from "./r5/index.js"
 export { createStore } from "./s4.js"
 
+function attachStyles(name) {
+  if (document.querySelector(`style#${name}`)) return
+
+  const el = document.createElement("style")
+  el.id = name
+  el.innerHTML = `${name}:not(:defined) > template[shadowrootmode] ~ * {
+    display: none;
+  }`
+  document.head.appendChild(el)
+}
+
+function attachShadowRoot(node) {
+  const template = node.querySelector("template[shadowrootmode]")
+
+  if (!template) return
+  const mode = template.getAttribute("shadowrootmode")
+
+  const shadowRoot = node.attachShadow({ mode })
+  shadowRoot.appendChild(template.content)
+  template.remove()
+  attachShadowRoot(shadowRoot)
+}
+
 export const define = (name, templateFn, _store = {}) => {
   if (customElements.get(name)) return
+
+  attachStyles(name)
 
   const initialState = JSON.parse(JSON.stringify(_store))
 
@@ -58,7 +83,9 @@ export const define = (name, templateFn, _store = {}) => {
         }
 
         update(store.getState())
+
         store.subscribe(update)
+        attachShadowRoot(this)
       }
     }
   )

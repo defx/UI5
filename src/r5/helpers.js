@@ -35,7 +35,28 @@ export const debounce = (callback) => {
 }
 
 export function nodeFromString(str) {
+  console.log(str)
+
+  /*
+  
+  oh this is weird, if my top-level node is a template, then it gets attached to the head instead of the body :/
+  
+  */
+
+  const doc = new DOMParser().parseFromString(str.trim(), "text/html", {
+    includeShadowRoots: true,
+  })
+
+  const errorNode = doc.querySelector("parsererror")
+
+  if (errorNode) {
+    console.log("error!")
+  } else {
+    return doc.head.firstChild || doc.body.firstChild
+  }
+
   let tpl = document.createElement("template")
+  console.log("NO WAY", str)
   tpl.innerHTML = str.trim()
   return tpl.content.cloneNode(true)
 }

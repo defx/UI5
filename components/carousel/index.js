@@ -2,7 +2,6 @@ import { define, html } from "../../src/index.js"
 
 const store = {
   activeSlide: 0,
-  slides: [],
   next: (state) => ({
     ...state,
     activeSlide:
@@ -15,94 +14,88 @@ const store = {
   }),
 }
 
-const template = ({ activeSlide, slides = [] }, dispatch) => {
+const template = ({ activeSlide }, dispatch) => {
   return html`
-    <section class="carousel" aria-roledescription="carousel">
-      <div class="controls">
-        <button
-          class="previous"
-          aria-controls="carouselItems"
-          aria-label="Previous Slide"
-          onclick="${() => dispatch("previous")}"
-        >
-          <svg
-            width="42"
-            height="34"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
+    <template shadowrootmode="open">
+      <style></style>
+      <section class="carousel" aria-roledescription="carousel">
+        <div class="controls">
+          <button
+            class="previous"
+            aria-controls="carouselItems"
+            aria-label="Previous Slide"
+            onclick="${() => dispatch("previous")}"
           >
-            <rect
-              class="background"
-              x="2"
-              y="2"
-              rx="5"
-              ry="5"
-              width="38"
-              height="24"
-            ></rect>
-            <rect
-              class="border"
-              x="4"
-              y="4"
-              rx="5"
-              ry="5"
-              width="34"
-              height="20"
-            ></rect>
-            <polygon points="9 14 21 8 21 11 33 11 33 17 21 17 21 20"></polygon>
-          </svg>
-        </button>
-        <button
-          class="next"
-          aria-controls="carouselItems"
-          aria-label="Next Slide"
-          onclick="${() => dispatch("next")}"
-        >
-          <svg
-            width="42"
-            height="34"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect
-              class="background"
-              x="2"
-              y="2"
-              rx="5"
-              ry="5"
-              width="38"
-              height="24"
-            ></rect>
-            <rect
-              class="border"
-              x="4"
-              y="4"
-              rx="5"
-              ry="5"
-              width="34"
-              height="20"
-            ></rect>
-            <polygon points="9 11 21 11 21 8 33 14 21 20 21 17 9 17"></polygon>
-          </svg>
-        </button>
-      </div>
-      <div id="carouselItems" class="carousel-items" aria-live="off">
-        ${slides.map((markup, index) =>
-          html`
-            <div
-              class="${index === activeSlide
-                ? "carousel-item active"
-                : "carousel-item"}"
-              role="group"
-              aria-roledescription="slide"
-              aria-label="${index + 1} of ${slides.length}"
+            <svg
+              width="42"
+              height="34"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              ${markup}
-            </div>
-          `.key(index)
-        )}
-      </div>
-    </section>
+              <rect
+                class="background"
+                x="2"
+                y="2"
+                rx="5"
+                ry="5"
+                width="38"
+                height="24"
+              ></rect>
+              <rect
+                class="border"
+                x="4"
+                y="4"
+                rx="5"
+                ry="5"
+                width="34"
+                height="20"
+              ></rect>
+              <polygon
+                points="9 14 21 8 21 11 33 11 33 17 21 17 21 20"
+              ></polygon>
+            </svg>
+          </button>
+          <button
+            class="next"
+            aria-controls="carouselItems"
+            aria-label="Next Slide"
+            onclick="${() => dispatch("next")}"
+          >
+            <svg
+              width="42"
+              height="34"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                class="background"
+                x="2"
+                y="2"
+                rx="5"
+                ry="5"
+                width="38"
+                height="24"
+              ></rect>
+              <rect
+                class="border"
+                x="4"
+                y="4"
+                rx="5"
+                ry="5"
+                width="34"
+                height="20"
+              ></rect>
+              <polygon
+                points="9 11 21 11 21 8 33 14 21 20 21 17 9 17"
+              ></polygon>
+            </svg>
+          </button>
+        </div>
+        <div id="carouselItems" class="carousel-items" aria-live="off">
+          <slot></slot>
+        </div>
+      </section>
+    </template>
   `
 }
 

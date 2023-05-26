@@ -42,7 +42,9 @@ export function render(templateResult, rootNode) {
 
   if (!nodes.has(rootNode)) {
     if (rootNode.innerHTML !== markup) {
-      rootNode.prepend(nodeFromString(markup))
+      const node = nodeFromString(markup)
+      // console.log(markup, node)
+      rootNode.prepend(node)
     }
     nodes.add(rootNode)
   }
