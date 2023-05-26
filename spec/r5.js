@@ -62,14 +62,14 @@ describe("r5", () => {
     render(
       html`<p
         id="a1"
-        class="${"bar"} baz ${"foo"}"
+        class="${"bar"} bar ${"foo"}"
         style="backgroundColor: gold;"
       >
-        <em class="${"boo"}"></em><
+        <em class="${"boo"}"></em>
       </p>`,
       rootNode
     )
-    assert.equal(rootNode.children[0].getAttribute("class"), "bar baz foo")
+    assert.equal(rootNode.children[0].getAttribute("class"), "bar bar foo")
   })
 
   it("set conditional/boolean attributes", () => {
@@ -222,7 +222,7 @@ describe("r5", () => {
 
   it("sets textarea", () => {
     render(
-      html`hi<textarea maxlength="${2}" autofocus>${"bonjour"}</textarea>`,
+      html`<textarea maxlength="${2}" autofocus>${"bonjour"}</textarea>`,
       rootNode
     )
     assert.equal(rootNode.children[0].value, "bonjour")

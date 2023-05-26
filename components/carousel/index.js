@@ -1,5 +1,7 @@
 import { define, html } from "../../src/index.js"
 
+import { style } from "../../src/css.js"
+
 const store = {
   activeSlide: 0,
   slides: [],
@@ -106,36 +108,39 @@ const template = ({ activeSlide, slides = [] }, dispatch) => {
   `
 }
 
-const styles = css`
-  .carousel {
-    width: 100%;
-    position: relative;
-    list-style-type: none;
-  }
-  .carousel-item {
-    width: 100%;
-    display: none;
-  }
-  .carousel-item.active {
-    display: block;
-  }
-  .controls {
-    position: relative;
-    top: 0;
-    left: 0;
-  }
-  .controls svg .background {
-    stroke: black;
-    fill: black;
-    stroke-width: 1px;
-    opacity: 0.6;
-  }
+define("c8-carousel", template, store)
 
-  .controls svg .border {
-    fill: transparent;
-    stroke: transparent;
-    stroke-width: 2px;
-  }
-`
+style(
+  "c8-carousel",
+  css`
+    .carousel {
+      width: 100%;
+      position: relative;
+      list-style-type: none;
+    }
+    .carousel-item {
+      width: 100%;
+      display: none;
+    }
+    .carousel-item.active {
+      display: block;
+    }
+    .controls {
+      position: relative;
+      top: 0;
+      left: 0;
+    }
+    .controls svg .background {
+      stroke: black;
+      fill: black;
+      stroke-width: 1px;
+      opacity: 0.6;
+    }
 
-define("c8-carousel", template, store, styles)
+    .controls svg .border {
+      fill: transparent;
+      stroke: transparent;
+      stroke-width: 2px;
+    }
+  `
+)

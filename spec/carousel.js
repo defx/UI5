@@ -18,9 +18,9 @@ describe("components/carousel", () => {
     render(
       html`<c8-carousel
         slides="${[
-          html`<p>Slide #foo</p>`,
-          html`<p>Slide #bar</p>`,
-          html`<p>Slide #baz</p>`,
+          html`<p>Slide #${"foo"}</p>`,
+          html`<p>Slide #${"bar"}</p>`,
+          html`<p>Slide #${"baz"}</p>`,
         ]}"
       ></c8-carousel>`,
       rootNode
@@ -34,9 +34,9 @@ describe("components/carousel", () => {
     render(
       html`<c8-carousel
         slides="${[
-          html`<p>Slide #baz</p>`,
-          html`<p>Slide #bar</p>`,
-          html`<p>Slide #foo</p>`,
+          html`<p>Slide #${"baz"}</p>`,
+          html`<p>Slide #${"bar"}</p>`,
+          html`<p>Slide #${"foo"}</p>`,
         ]}"
       ></c8-carousel>`,
       rootNode

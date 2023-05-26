@@ -33,3 +33,9 @@ export const debounce = (callback) => {
     })
   }
 }
+
+export function nodeFromString(str) {
+  let tpl = document.createElement("template")
+  tpl.innerHTML = str.trim()
+  return tpl.content.cloneNode(true)
+}

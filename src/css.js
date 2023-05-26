@@ -9,7 +9,7 @@ function nextOpenBrace(css, count) {
   }
 }
 
-function prefixSelectors(prefix, css) {
+export function prefixSelectors(prefix, css) {
   let insideBlock = false
   let look = true
   let output = ""
@@ -58,7 +58,7 @@ function prefixSelectors(prefix, css) {
   return output
 }
 
-export function appendStyles(name, css) {
+export function style(name, css) {
   if (document.querySelector(`style#${name}`)) return
 
   const el = document.createElement("style")

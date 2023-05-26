@@ -8,6 +8,12 @@ const isAttributeSentinel = (node) =>
 const isTextAreaSentinel = (node) =>
   node.nodeType === Node.COMMENT_NODE && node.textContent.match("&")
 
+const isTemplateOpenSentinel = (node) =>
+  node.nodeType === Node.COMMENT_NODE && node.textContent === "["
+
+const isTemplateCloseSentinel = (node) =>
+  node.nodeType === Node.COMMENT_NODE && node.textContent === "]"
+
 const isOpenBrace = (node) =>
   node.nodeType === Node.COMMENT_NODE && node.textContent === "{"
 
@@ -101,7 +107,7 @@ export const update = (templateResult, rootNode, finalNode) => {
             t.after(...block.nodes)
           }
           t = last(block.nodes)
-          update(value[i], firstChild, t)
+          update(value[i], firstChild, (n) => n.isSameNode(t))
         })
 
         return lastNode.nextSibling
@@ -158,12 +164,14 @@ export const update = (templateResult, rootNode, finalNode) => {
       if (textarea.value !== value) {
         textarea.value = value
       }
+    } else if (isTemplateOpenSentinel(node)) {
+      update(values[v], node.nextSibling, isTemplateCloseSentinel)
     }
 
     // don't walk into another custom element
     if (node.nodeName.includes("-")) return false
 
-    if (finalNode && node.isEqualNode(finalNode)) {
+    if (finalNode?.(node)) {
       return 1
     }
   })
