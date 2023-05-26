@@ -34,12 +34,17 @@ describe("components/carousel", () => {
     render(
       html`<c8-carousel
         slides="${[
-          html`<img src="http://placekitten.com/200/200" />`,
-          html`<img src="http://placekitten.com/300/200" />`,
-          html`<img src="http://placekitten.com/g/200/300" />`,
+          html`<p>Slide #baz</p>`,
+          html`<p>Slide #bar</p>`,
+          html`<p>Slide #foo</p>`,
         ]}"
       ></c8-carousel>`,
       rootNode
+    )
+
+    assert.deepEqual(
+      [...rootNode.querySelectorAll(`c8-carousel p`)].map((v) => v.textContent),
+      ["Slide #baz", "Slide #bar", "Slide #foo"]
     )
   })
 })
