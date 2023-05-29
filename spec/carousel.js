@@ -15,22 +15,16 @@ describe("components/carousel", () => {
   })
 
   it("renders slides with custom html", async () => {
+    const slides = [
+      "/components/carousel/images/eugene-golovesov-nCRnvB-u78Q-unsplash.jpg",
+      "/components/carousel//images/marek-piwnicki-xVYubikEPAE-unsplash.jpg",
+      "/components/carousel//images/pascal-bullan-mI3lDsFHgMo-unsplash.jpg",
+      "/components/carousel//images/shana-van-roosbroek-uk130hh9JMQ-unsplash.jpg",
+    ]
+
     render(
       html`<c8-carousel
-        slides="${[
-          html`<img
-            src="/components/carousel/images/eugene-golovesov-nCRnvB-u78Q-unsplash.jpg"
-          />`,
-          html`<img
-            src="/components/carousel//images/marek-piwnicki-xVYubikEPAE-unsplash.jpg"
-          />`,
-          html`<img
-            src="/components/carousel//images/pascal-bullan-mI3lDsFHgMo-unsplash.jpg"
-          />`,
-          html`<img
-            src="/components/carousel//images/shana-van-roosbroek-uk130hh9JMQ-unsplash.jpg"
-          />`,
-        ]}"
+        slides="${slides.map((path) => html`<img src="${path}" />`)}"
       ></c8-carousel>`,
       rootNode
     )
