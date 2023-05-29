@@ -114,7 +114,7 @@ style(
   "c8-carousel",
   css`
     .carousel {
-      width: 100%;
+      width: 50%;
       position: relative;
       list-style-type: none;
     }
@@ -141,6 +141,10 @@ style(
       fill: transparent;
       stroke: transparent;
       stroke-width: 2px;
+    }
+
+    img {
+      width: 100%;
     }
   `
 )
