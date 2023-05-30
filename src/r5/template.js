@@ -45,7 +45,7 @@ export function html(strings, ...values) {
 
     if (i > L) return str
 
-    const isElement = str.match(/<[^\/>]+$/)
+    const isElement = str.match(/<[^>]+$/)
     const isAttributeValue = str.match(/(\w+-?\w+)=['"]{1}([^'"]*)$/)
 
     if (looksLikeATemplate(values[i]?.[0])) {

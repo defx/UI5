@@ -113,14 +113,21 @@ define("c8-carousel", template, store)
 style(
   "c8-carousel",
   css`
+    img {
+      width: 100%;
+    }
     .carousel {
-      width: 50%;
+      width: 100%;
       position: relative;
       list-style-type: none;
+      overflow: hidden;
+    }
+    .carousel-items {
+      display: flex;
     }
     .carousel-item {
-      width: 100%;
       display: none;
+      flex: 0 0 100%;
     }
     .carousel-item.active {
       display: block;
@@ -141,10 +148,6 @@ style(
       fill: transparent;
       stroke: transparent;
       stroke-width: 2px;
-    }
-
-    img {
-      width: 100%;
     }
   `
 )
